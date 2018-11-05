@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Spring,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="[TOC] Spring的缓存机制Spring的缓存不是一种具体的缓存实现方案，它底层需要依赖EhCache、Guava等具体的缓存工具。应用程序只要面向Spring缓存API编程，应用底层的缓存实现可以在不同的缓存之间自由切换，应用程序无须任何改变，只需要对配置文件略作修改即可。 启用Spring缓存为了启用Spring缓存，需要在配置文件中导入cache:命名空间。导入cache:命名空间之后">
-<meta name="keywords" content="程序员">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring的缓存机制">
-<meta property="og:url" content="http://www.yangzb.top/2018/11/03/Spring的缓存机制 /index.html">
+<meta property="og:url" content="http://www.yangzb.top/2018/11/05/Spring的缓存机制/index.html">
 <meta property="og:site_name" content="梓琰苑">
 <meta property="og:description" content="[TOC] Spring的缓存机制Spring的缓存不是一种具体的缓存实现方案，它底层需要依赖EhCache、Guava等具体的缓存工具。应用程序只要面向Spring缓存API编程，应用底层的缓存实现可以在不同的缓存之间自由切换，应用程序无须任何改变，只需要对配置文件略作修改即可。 启用Spring缓存为了启用Spring缓存，需要在配置文件中导入cache:命名空间。导入cache:命名空间之后">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-05T07:01:13.220Z">
+<meta property="og:updated_time" content="2018-11-05T09:30:12.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring的缓存机制">
 <meta name="twitter:description" content="[TOC] Spring的缓存机制Spring的缓存不是一种具体的缓存实现方案，它底层需要依赖EhCache、Guava等具体的缓存工具。应用程序只要面向Spring缓存API编程，应用底层的缓存实现可以在不同的缓存之间自由切换，应用程序无须任何改变，只需要对配置文件略作修改即可。 启用Spring缓存为了启用Spring缓存，需要在配置文件中导入cache:命名空间。导入cache:命名空间之后">
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://www.yangzb.top/2018/11/03/Spring的缓存机制 /">
+  <link rel="canonical" href="http://www.yangzb.top/2018/11/05/Spring的缓存机制/">
 
 
 
@@ -283,7 +283,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.yangzb.top/2018/11/03/Spring的缓存机制 /">
+    <link itemprop="mainEntityOfPage" href="http://www.yangzb.top/2018/11/05/Spring的缓存机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Yang Zhibo">
@@ -312,8 +312,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T10:36:06+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T17:30:12+08:00">
+                2018-11-05
               </time>
             
 
@@ -322,6 +322,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -418,6 +440,7 @@
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span>(<span class="string">"userService"</span>)</span><br><span class="line"><span class="meta">@Cacheable</span>(value = <span class="string">"users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">getUsersByNameAndAge</span><span class="params">(String name, <span class="keyword">int</span> age)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--正在执行findUsersByNameAndAge()查询方法--"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> User(name, age);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> User <span class="title">getAnotherUser</span><span class="params">(String name, <span class="keyword">int</span> age)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--正在执行findAnotherUser()查询方法--"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> User(name, age);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 指定根据name、age参数清除缓存</span></span><br><span class="line">	<span class="meta">@CacheEvict</span>(value = <span class="string">"users"</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evictUser</span><span class="params">(String name, <span class="keyword">int</span> age)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--正在清空"</span>+ name</span><br><span class="line">			+ <span class="string">" , "</span> + age + <span class="string">"对应的缓存--"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 指定清除user缓存区所有缓存数据</span></span><br><span class="line">	<span class="meta">@CacheEvict</span>(value = <span class="string">"users"</span> , allEntries=<span class="keyword">true</span>)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">evictAll</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"--正在清空整个缓存--"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ApplicationContext ctx =</span><br><span class="line">		<span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</span><br><span class="line">	UserService us = ctx.getBean(<span class="string">"userService"</span> , UserService.class);</span><br><span class="line">	<span class="comment">// 调用us对象的2个带缓存的方法，系统会缓存两个方法返回的数据</span></span><br><span class="line">	User u1 = us.getUsersByNameAndAge(<span class="string">"孙悟空"</span>, <span class="number">500</span>);</span><br><span class="line">	User u2 = us.getAnotherUser(<span class="string">"猪八戒"</span>, <span class="number">400</span>);</span><br><span class="line">	<span class="comment">//调用evictUser()方法清除缓存中指定的数据</span></span><br><span class="line">	us.evictUser(<span class="string">"猪八戒"</span>, <span class="number">400</span>);</span><br><span class="line">	<span class="comment">// 由于前面根据"猪八戒", 400缓存的数据已经被清除了，</span></span><br><span class="line">	<span class="comment">// 因此下面代码会重新执行，方法返回的数据将被再次缓存。</span></span><br><span class="line">	User u3 = us.getAnotherUser(<span class="string">"猪八戒"</span>, <span class="number">400</span>);  <span class="comment">// ①</span></span><br><span class="line">	System.out.println(u2 == u3); <span class="comment">// 输出false</span></span><br><span class="line">	<span class="comment">// 由于前面前面已经缓存了参数为"孙悟空", 500的数据，</span></span><br><span class="line">	<span class="comment">// 因此下面代码不会重新执行，直接利用缓存中的数据。</span></span><br><span class="line">	User u4 = us.getAnotherUser(<span class="string">"孙悟空"</span>, <span class="number">500</span>);   <span class="comment">// ②</span></span><br><span class="line">	System.out.println(u1 == u4); <span class="comment">// 输出true</span></span><br><span class="line">	<span class="comment">// 清空整个缓存。</span></span><br><span class="line">	us.evictAll();</span><br><span class="line">	<span class="comment">// 由于整个缓存都已经被清空，因此下面两行代码都会重新执行</span></span><br><span class="line">	User u5 = us.getAnotherUser(<span class="string">"孙悟空"</span>, <span class="number">500</span>);</span><br><span class="line">	User u6 = us.getAnotherUser(<span class="string">"猪八戒"</span>, <span class="number">400</span>);</span><br><span class="line">	System.out.println(u1 == u5); <span class="comment">// 输出false</span></span><br><span class="line">	System.out.println(u3 == u6); <span class="comment">// 输出false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -432,6 +455,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
 
       
       
@@ -441,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/02/SpringAOP/" rel="next" title="SpringAOP">
-                <i class="fa fa-chevron-left"></i> SpringAOP
+              <a href="/2018/11/05/Spring的事务/" rel="next" title="Spring 的事务">
+                <i class="fa fa-chevron-left"></i> Spring 的事务
               </a>
             
           </div>
@@ -451,8 +480,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/03/Spring的事务/" rel="prev" title="Spring 的事务">
-                Spring 的事务 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/05/深入使用 Spring/" rel="prev" title="深入使用 Spring">
+                深入使用 Spring <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -532,14 +561,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -623,7 +670,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
@@ -722,6 +769,13 @@
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
 
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
