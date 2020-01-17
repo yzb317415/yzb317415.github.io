@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="需求开发与管理,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="[TOC] 软件需求的本质在软件项目中，所有干系人的利益交接点主要集中在需求方面。正是由于需求是软件开发和项目管理活动的基础，因此所有干系人都应该致力于需求实践活动，这是打造一流产品的前提。 需求的层次和种类 业务需求描述组织为什么要执行系统（组织希望获得的业务收益）。其关注点在于组织或者提出系统要求的客户有哪些业务目标 用户需求描述了用户使用产品必须完成的目标或者任务，并且这个产品要能有为人提供">
+<meta name="keywords" content="需求开发与管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件需求的本质">
+<meta property="og:url" content="http://www.yangzb.top/2020/01/17/软件需求的本质/index.html">
+<meta property="og:site_name" content="梓琰苑">
+<meta property="og:description" content="[TOC] 软件需求的本质在软件项目中，所有干系人的利益交接点主要集中在需求方面。正是由于需求是软件开发和项目管理活动的基础，因此所有干系人都应该致力于需求实践活动，这是打造一流产品的前提。 需求的层次和种类 业务需求描述组织为什么要执行系统（组织希望获得的业务收益）。其关注点在于组织或者提出系统要求的客户有哪些业务目标 用户需求描述了用户使用产品必须完成的目标或者任务，并且这个产品要能有为人提供">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://images.yangzb.top/mweb/需求层次种类.png">
+<meta property="og:image" content="http://images.yangzb.top/mweb/需求过程.png">
+<meta property="og:image" content="http://images.yangzb.top/mweb/需求实践.png">
+<meta property="og:updated_time" content="2020-01-17T07:58:22.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件需求的本质">
+<meta name="twitter:description" content="[TOC] 软件需求的本质在软件项目中，所有干系人的利益交接点主要集中在需求方面。正是由于需求是软件开发和项目管理活动的基础，因此所有干系人都应该致力于需求实践活动，这是打造一流产品的前提。 需求的层次和种类 业务需求描述组织为什么要执行系统（组织希望获得的业务收益）。其关注点在于组织或者提出系统要求的客户有哪些业务目标 用户需求描述了用户使用产品必须完成的目标或者任务，并且这个产品要能有为人提供">
+<meta name="twitter:image" content="http://images.yangzb.top/mweb/需求层次种类.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.yangzb.top/2020/01/17/软件需求的本质/">
+
+
+
+
+
+  <title>软件需求的本质 | 梓琰苑</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e96e57577ac183916aa2b3965db2dac6";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">梓琰苑</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.yangzb.top/2020/01/17/软件需求的本质/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yang Zhibo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/my_icon.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="梓琰苑">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件需求的本质</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-17T15:58:19+08:00">
+                2020-01-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>[TOC]</p>
+<h1 id="软件需求的本质"><a href="#软件需求的本质" class="headerlink" title="软件需求的本质"></a>软件需求的本质</h1><p>在软件项目中，所有干系人的利益交接点主要集中在需求方面。<br>正是由于需求是软件开发和项目管理活动的基础，因此所有干系人都应该致力于需求实践活动，这是打造一流产品的前提。</p>
+<h2 id="需求的层次和种类"><a href="#需求的层次和种类" class="headerlink" title="需求的层次和种类"></a>需求的层次和种类</h2><ul>
+<li><strong>业务需求</strong>描述组织为什么要执行系统（组织希望获得的业务收益）。其关注点在于组织或者提出系统要求的客户有哪些业务目标</li>
+<li><strong>用户需求</strong>描述了用户使用产品必须完成的目标或者任务，并且这个产品要能有为人提供价值。用户需求表达的是用户通过系统完成那些具体的工作。</li>
+<li><strong>功能需求</strong>说的是在特定条件下所展示出来的行为 ，主要描述开发人员需要实现的功能以便用户能够完成自己的任务（用户需求），进而满足业务需求</li>
+<li><strong>系统需求</strong>描述了人们对某个产品的需求，而这个产品由多个组件或者系统子集组成</li>
+<li><strong>业务规则</strong>包括公司政策、政府法规、工业标准以及计算算法。业务规则有时又引申出具体的质量特性，这些特性有以功能的方式由开发人员实现。特定的功能需求可以追溯到具体的业务规则。</li>
+<li><strong>非功能需求</strong>描述系统必须展现的属性或者特性，或者必须遵循的约束。强调的并不是系统要做什么，其重点在于展现系统做的有多棒。包括系统的易用性、安全性、性能等特征。</li>
+<li><strong>特性</strong>单个或者多个用户提供价值的、有逻辑关系的系统性能，可以通过一个功能需求集合进行描述</li>
+</ul>
+<p><img src="http://images.yangzb.top/mweb/需求层次种类.png" alt="需求层次种类-w869"></p>
+<p>图中所述的三种主要的需求交付物：愿景和范围文档、用户需求文档和软件需求规范说明（SRS）。无需为每个项目都创建三种独立的需求交付物。但这类需求信息融合在一起（特别是对于小型下项目），还是有必要的。</p>
+<h2 id="处理三种层次的需求"><a href="#处理三种层次的需求" class="headerlink" title="处理三种层次的需求"></a>处理三种层次的需求</h2><p>经理或者市场部门确定软件的业务需求-&gt;业务分析是通常与用户代表协同工作确定用户需求-&gt;产品经理决定产品中融入的特性-&gt;开发人员、测试人员根据功能和非功能需求进行开发和测试。</p>
+<p>每个用户需求和特性必须向完成业务需求看齐。从用户需求角度开发，业务分析师或者产品经理引出能够使用户实现任务目标的功能。</p>
+<h2 id="需求开发和管理"><a href="#需求开发和管理" class="headerlink" title="需求开发和管理"></a>需求开发和管理</h2><h3 id="需求开发"><a href="#需求开发" class="headerlink" title="需求开发"></a>需求开发</h3><ol>
+<li><p>获取<br> 需求获取涵盖需求发现的所有活动，例如访谈、研讨会、分档分析、原型等</p>
+<ul>
+<li>识别产品的预期客户群和其他干系人</li>
+<li>理解客户任务、目标业绩这些任务相关的业务目标</li>
+<li>了解新产品的应用环境</li>
+<li><p>与每一类客户群的代表一起工作，理解他们对功能有哪些需要以及对质量有怎样的预期</p>
+<blockquote>
+<p>在进行需求获取活动时，通常采取以用途或者产品为核心的方法。以用途为核心的策略强调的是对<strong>用户目标</strong>的理解和探求，以便提取必要的系统功能。以产品为核心的方法侧重于<strong>特性</strong>，目的是领先市场或者业务取得成功。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>分析</p>
+<ul>
+<li>分析来自用户的信息，将其任务目标与用能需求、质量预期、业务规则、建议解决方案和其他信息区别开</li>
+<li>将概要需求进行适当的细分</li>
+<li>从其他需求信息中引出功能需求</li>
+<li>理解质量属性的相对重要性</li>
+<li>将需求分配给系统架构所定义的软件组件</li>
+<li>协商需求实现的优先级别</li>
+</ul>
+</li>
+<li><p>规范说明<br> 需求规范说明以一种连贯并结构清晰的方式来表达和存储收集到的需求知识</p>
+<ul>
+<li>将收集到的用户需求转换为书面形式的需求和图表，供目标读者理解、检查和使用。</li>
+</ul>
+</li>
+<li><p>验证<br> 需求验证是指确认需求信息是正确的，能使开发人员制定出能满足业务目标的解决方案</p>
+<ul>
+<li>检查记录下来的需求，在交给开发团队认可之前解决所有问题</li>
+<li><p>开发验收测试和标准，保证产品的开发是建立在需求基础之上的，能够满足客户需要并达成业务目标</p>
+<p>迭代是成功需求开发的关键</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="需求管理"><a href="#需求管理" class="headerlink" title="需求管理"></a>需求管理</h3><p>需求管理活动：</p>
+<ul>
+<li>及时确认需求基线，提交一个供当前时间段使用的参考，提出一套大家商定的、经过评审和标准的功能需求与非功能需求，通常针对具体的产品发布或者迭代开发</li>
+<li>评估提议需求变更可能产生的影响，然后以可控方式将获准的变更融入项目</li>
+<li>随着需求的演化，保持项目计划与需求同步</li>
+<li>根据预估的需求变更可能带来的影响，商定新的承诺</li>
+<li>定义各个需求之间存在的关系和依赖</li>
+<li>跟踪每个需求到它们各自对应的设计、源代码和测试</li>
+<li>在整个项目过程中跟踪需求状态和变更活动</li>
+</ul>
+<p>需求管理的目标不是抑制变更或加大其难度，而是为了预测和协调不可避免且真实存在的变更，最终最小化变更对项目的破坏性影响</p>
+<h3 id="人对了，得出的需求却很糟糕"><a href="#人对了，得出的需求却很糟糕" class="headerlink" title="人对了，得出的需求却很糟糕"></a>人对了，得出的需求却很糟糕</h3><ul>
+<li>用户参与度不够<br>  用户参与度不足会引发新的需求，造成返工并延误工期。<br>  使延误分析师无法理解并准确几乎实际业务或者客户需要，特别实在检查和验证需求时</li>
+<li>规划不够<br>  软件成本估算不当的主要原因有：频繁的需求变更、需求依赖、与用户沟通不足、低质量的需求规范和不完善的需求分析</li>
+<li>用户需求蔓延<br>  为了管理范围蔓延，必须一开始就对项目的业务目标、战略愿景、范围、边界和成功标准给予明确说明。以此为参照，对所有的新特性或者需求变更进行评估。<br>  随着新需求的涌现，我们可以将其植入到未完成的条目之中，然后根据优先级别分配到未来的迭代之中。变更也许决定着项目成败，但它总是有代价的。</li>
+<li>需求模棱俩可<br>  模棱两可的需求会使不同干系人产生不同的期望。<br>  干系人应作为小组以工作坊的形式来讨论和解读需求，共同获取和验证需求。为需求写测试或者建原型也可以帮组我们找出歧义性需求</li>
+<li>镀金<br>  指开发人员增加的功能并不在需求规范之中（或者超出范围），但开发人员却自认为“用户肯定会喜欢”。如果客户对这个功能并不在意，那么实现这个功能就是再浪费时间<br>  为了降低镀金的风险，就要对每一个功能单元追踪溯源，让大家了解为什么要有这些功能。确保规范和开发的东西都包含在项目范围之内。</li>
+<li>忽视干系人<br>  用户群不同，特性也不同，如果忽略特定的干系人，某些用户的需求可能就无法满足。</li>
+</ul>
+<h2 id="高质量需求过程带来的好处"><a href="#高质量需求过程带来的好处" class="headerlink" title="高质量需求过程带来的好处"></a>高质量需求过程带来的好处</h2><ul>
+<li>需求中的缺陷和交付产品中的缺陷更少</li>
+<li>开发的返工减少了</li>
+<li>开发和交付更快</li>
+<li>不必要和无用的特性更少</li>
+<li>减少成本追加</li>
+<li>信息错误传达的现象减少了</li>
+<li>范围蔓延减少了</li>
+<li>项目的混乱现象减少了</li>
+<li>客户和团队成员的满意度更高了</li>
+<li>产品按照人们当初的设想顺利运行</li>
+</ul>
+<h1 id="从客户的角度审视需求"><a href="#从客户的角度审视需求" class="headerlink" title="从客户的角度审视需求"></a>从客户的角度审视需求</h1><p>越频繁的沟通，越容易让开发工作保持在正确的轨道上。<br>敏捷方法的一个指导性原则是开发人员要与客户保持持续沟通</p>
+<h2 id="谁是客户"><a href="#谁是客户" class="headerlink" title="谁是客户"></a>谁是客户</h2><p>干系人是指积极参与项目的某个人、群体和组织，它们可能会受项目过程和结果的影响或者影响项目的过程和结果<br>客户是能够直接或者间接从产品中获益的个人或组织。如上文所说，它们是实际业务需求的提出者，建立项目的指导框架以及启动项目的业务理念。<br>用户需求应该来自于直接或者间接使用产品的人，这些用户（通常称为“终端用户”）是客户的子集。用户通常能够描述他们需要产品执行的具体任务、他们需要的输出以及他们希望产品达到的质量标准。<br>提供业务需求的客户有时会试图替实际用户说话，然而这些内容常常和真是用户的需求相去甚远。如果为项目买单的人和最终用户之间有严重的脱节，肯定会出大问题</p>
+<h2 id="客户-开发的合作关系"><a href="#客户-开发的合作关系" class="headerlink" title="客户-开发的合作关系"></a>客户-开发的合作关系</h2><p>卓越的软件产品来自基于卓越需求的卓越设计。卓越的需求则根基与开发人员与客户（特别是终端用户）高效协作的土壤中。</p>
+<p>客户的权利：</p>
+<ol>
+<li>期望业务分析师用自己的语言进行交流</li>
+<li>期望业务分析师了解自己的业务和目标</li>
+<li>希望业务分析师用了解合适的形式记录需求</li>
+<li>收到需求实践和交付物的相关解释</li>
+<li>变更需求</li>
+<li>期望一个相互尊重的环境</li>
+<li>聆听关于需求以及解决方案的建议和替代方案</li>
+<li>描述能够提高产品易用性的特性</li>
+<li>了解调整哪些需求可以实现复用，加速产品开发</li>
+<li>收到满足自己功能需求和质量预期的系统</li>
+</ol>
+<p>客户的责任</p>
+<ol>
+<li>给业务分析师和开发人员传授你的业务知识</li>
+<li>准备足够的时间用来澄清需求</li>
+<li>提供具体而准确的需求</li>
+<li>及时对需求进行确认</li>
+<li>尊重开发人员针对需求可行性和成本的估算</li>
+<li>和开发人员协作设置符合实际的需求优先级</li>
+<li>评审需求和评估原型</li>
+<li>设定验收条件</li>
+<li>及时沟通需求变更</li>
+<li>尊重需求开发流程</li>
+</ol>
+<h2 id="建立尊重需求的企业文化"><a href="#建立尊重需求的企业文化" class="headerlink" title="建立尊重需求的企业文化"></a>建立尊重需求的企业文化</h2><p>如果想把开发人员、经理和客户拉在一起，就必须让每一个人都了解公司和客户之间曾经因为需求问题而经理的痛苦。<br>开发人员也是项目干系人，但他们的需求有时并没有得到任何考虑，使其成为被强加需求的受害者。开发人员应该提供关键信息以确保需求文档能够真正发挥作用。<br>质量保障人员和测试人员也是优秀需求的贡献者。</p>
+<blockquote>
+<p>组织需要把高效业务分析和需求工程能力作为自己的战略性核心竞争力。</p>
+</blockquote>
+<h2 id="对需求达成一致"><a href="#对需求达成一致" class="headerlink" title="对需求达成一致"></a>对需求达成一致</h2><p>涉及的多个角色应形成如下共识：</p>
+<ul>
+<li>客户承认需求描述了他们的需要</li>
+<li>开发人员承认理解需求并且认为它们是可实现的</li>
+<li>测试人员承认需求是可验证的</li>
+<li>管理层承认需求可以达成他们的业务目标</li>
+</ul>
+<blockquote>
+<p>不要把签字作为武器。把它当做一个里程碑，表示大家对签字活动的意义有清晰的共识，也包括理解未来有可能的变更。</p>
+</blockquote>
+<h3 id="需求基线"><a href="#需求基线" class="headerlink" title="需求基线"></a>需求基线</h3><p>比签字仪式更重要的是确立一条需求基线，一个特定时间点的需求快照。需求基线是一组需求，在平生和确认后作为后续开发的基础。</p>
+<blockquote>
+<p>“我同意当前这组需求代表我们对项目下一阶段需求最深入的理解，并且基于目前我们对问题的理解，这个解决方案能够满足我们的需求。我同意在未来使用项目定义好的变更流程基于这个基线对需求进行修改。我清除变更可能导致我们重新讨论项目的成本、涉及的资源以及对时间表的承诺。”</p>
+</blockquote>
+<ul>
+<li>客户管理层或者市场营销人员相信项目不会超出可控范围,因为客户会为范围变化的决定负责。</li>
+<li>用户代表相信开发团队会和他们一起工作,交付正确的解决方案,即使他们在开发开始之前没有考虑清楚所有的需求。</li>
+<li>开发部门的信心建立在开发团队有业务伙伴保证项目始终聚焦于其目标上,同时业务伙伴也和开发团队一起平衡项目计划、成本、功能和质量。</li>
+<li>业务分析师和项目经理有信心有效控制项目变更带来的风险,并使风险最小化。</li>
+<li>质量保证和测试团队有信心开发测试脚本并且为自己在项目中的各种活动做好准备。</li>
+</ul>
+<h1 id="需求实践"><a href="#需求实践" class="headerlink" title="需求实践"></a>需求实践</h1><p><img src="http://images.yangzb.top/mweb/需求过程.png" alt="需求过程"></p>
+<p>在需求开发中，“逐步完善细节”是实施中的一个关键术语，指的是从一些原始的需求想法向更精确的理解和表述演进</p>
+<p><img src="http://images.yangzb.top/mweb/需求实践.png" alt="需求实践"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/需求开发与管理/" rel="tag"># 需求开发与管理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/05/深入使用 Spring/" rel="next" title="深入使用 Spring">
+                <i class="fa fa-chevron-left"></i> 深入使用 Spring
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/17/需求开发/" rel="prev" title="需求开发">
+                需求开发 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/my_icon.jpg" alt="Yang Zhibo">
+            
+              <p class="site-author-name" itemprop="name">Yang Zhibo</p>
+              <p class="site-description motion-element" itemprop="description">不积跬步无以至千里，不积小流无以成江海</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yzb317415" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:yzb317415@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/yzb317415" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-globe"></i>微博</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://guohaiyang.top/" title="安卓大牛郭海洋" target="_blank">安卓大牛郭海洋</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#软件需求的本质"><span class="nav-number">1.</span> <span class="nav-text">软件需求的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#需求的层次和种类"><span class="nav-number">1.1.</span> <span class="nav-text">需求的层次和种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理三种层次的需求"><span class="nav-number">1.2.</span> <span class="nav-text">处理三种层次的需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求开发和管理"><span class="nav-number">1.3.</span> <span class="nav-text">需求开发和管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求开发"><span class="nav-number">1.3.1.</span> <span class="nav-text">需求开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#需求管理"><span class="nav-number">1.3.2.</span> <span class="nav-text">需求管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#人对了，得出的需求却很糟糕"><span class="nav-number">1.3.3.</span> <span class="nav-text">人对了，得出的需求却很糟糕</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高质量需求过程带来的好处"><span class="nav-number">1.4.</span> <span class="nav-text">高质量需求过程带来的好处</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从客户的角度审视需求"><span class="nav-number">2.</span> <span class="nav-text">从客户的角度审视需求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#谁是客户"><span class="nav-number">2.1.</span> <span class="nav-text">谁是客户</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户-开发的合作关系"><span class="nav-number">2.2.</span> <span class="nav-text">客户-开发的合作关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立尊重需求的企业文化"><span class="nav-number">2.3.</span> <span class="nav-text">建立尊重需求的企业文化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对需求达成一致"><span class="nav-number">2.4.</span> <span class="nav-text">对需求达成一致</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求基线"><span class="nav-number">2.4.1.</span> <span class="nav-text">需求基线</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#需求实践"><span class="nav-number">3.</span> <span class="nav-text">需求实践</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang Zhibo</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="BbeiAn-info"">
+  蒙ICP备 -
+  <a href="http://beian.miit.gov.cn">18005016号</a>
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
