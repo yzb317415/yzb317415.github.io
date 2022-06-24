@@ -1,0 +1,424 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>深入使用 Spring | 梓琰苑</title><meta name="keywords" content="Spring,学习笔记"><meta name="author" content="Kevin Yang"><meta name="copyright" content="Kevin Yang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="深入使用 Spring两种后处理器  Bean后处理器：这种后处理器会对容器中的 Bean进行后处理，对 Bean 进行额外加强 容器后处理器：这种后处理器对 IoC 容器进行后处理，用于增强容器功能   Bean 后处理器Bean 后处理器是一种特殊的 Bean，这种特殊的 Bean 并不对外提供服务，它甚至无需 id 属性，它主要负责对容器中其他 Bean 执行后处理，例如为容器中的目标 Be">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入使用 Spring">
+<meta property="og:url" content="http://www.yangzb.top/%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8%20Spring.html">
+<meta property="og:site_name" content="梓琰苑">
+<meta property="og:description" content="深入使用 Spring两种后处理器  Bean后处理器：这种后处理器会对容器中的 Bean进行后处理，对 Bean 进行额外加强 容器后处理器：这种后处理器对 IoC 容器进行后处理，用于增强容器功能   Bean 后处理器Bean 后处理器是一种特殊的 Bean，这种特殊的 Bean 并不对外提供服务，它甚至无需 id 属性，它主要负责对容器中其他 Bean 执行后处理，例如为容器中的目标 Be">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg">
+<meta property="article:published_time" content="2018-12-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-06-24T01:52:57.024Z">
+<meta property="article:author" content="Kevin Yang">
+<meta property="article:tag" content="Spring">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://www.yangzb.top/%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8%20Spring"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?8a057bc4ffe425528445591fb7e12788";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"EU0YVSRNME","apiKey":"3bd63739d935105ab10ea749175f7d13","indexName":"my-hexo-blog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '深入使用 Spring',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-06-24 09:52:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/头像.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">梓琰苑</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">深入使用 Spring</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-12-24T16:00:00.000Z" title="发表于 2018-12-25 00:00:00">2018-12-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-06-24T01:52:57.024Z" title="更新于 2022-06-24 09:52:57">2022-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JAVA%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/">JAVA后端开发</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JAVA%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91/Spring/">Spring</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">6.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>21分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="深入使用 Spring"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="深入使用-Spring"><a href="#深入使用-Spring" class="headerlink" title="深入使用 Spring"></a>深入使用 Spring</h1><h2 id="两种后处理器"><a href="#两种后处理器" class="headerlink" title="两种后处理器"></a>两种后处理器</h2><blockquote>
+<ul>
+<li>Bean后处理器：这种后处理器会对容器中的 Bean进行后处理，对 Bean 进行额外加强</li>
+<li>容器后处理器：这种后处理器对 IoC 容器进行后处理，用于增强容器功能</li>
+</ul>
+</blockquote>
+<h3 id="Bean-后处理器"><a href="#Bean-后处理器" class="headerlink" title="Bean 后处理器"></a>Bean 后处理器</h3><p>Bean 后处理器是一种特殊的 Bean，这种特殊的 Bean 并不对外提供服务，它甚至无需 id 属性，它主要负责对容器中其他 Bean 执行后处理，例如为容器中的目标 Bean 生成代理等，这种Bean 被称作<strong>Bean后处理器</strong></p>
+<p>Bean后处理器会在 Bean 实例创建成功之后，对 Bean 实例进行进一步的增强处理，Bean 后处理器必须实现 BeanPostProcessor 接口，该接口包含如下两个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 该方法的第一个参数是系统即将进行后处理的 Bean 实例，第二个参数是该 Bean 的配置 id</span></span><br><span class="line">Object <span class="title function_">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span><span class="keyword">throws</span> BeansException</span><br><span class="line"><span class="comment">// 该方法的第一个参数是系统即将进行后处理的 Bean 实例，第二个参数是该 Bean 的配置 id</span></span><br><span class="line">Object <span class="title function_">postProcessAfterInitialization</span><span class="params">(Object bean, String beanName)</span><span class="keyword">throws</span> BeansException</span><br></pre></td></tr></table></figure>
+<p>实现 Bean 后处理器必须实现这两个方法，这两个方法会对容器的 Bean 进行后处理，会在目标 Bean 初始化之前、初始化之后分别被回调，这两个方法用于对容器中的 Bean 进行增强处理。</p>
+<p>实现 BeanPostProcessor 接口的 Bean 可对 Bean 进行任何操作，包活完全忽略这次回调。BeanPostProcessor 通常用来检查标记接口，或者做如将 Bean 包装成一个 Proxy 的事情，Spring的很多工具类就是通过 Bean 后处理器完成的。  </p>
+<p>在配置文件中配置 Bean 后处理器和配置普通Bean 一样，通常程序无须主动获取 Bean 后处理器，因此配置文件可以无需为 Bean 后处理器指定 id 属性。</p>
+<p>如果使用 BeanFactory 作为 Spring 容器，则必须手动注册 Bean 后处理器，程序必须获取 Bean 后处理器实例，然后手动注册。在这种需求下，程序可能需要在配置文件中为 Bean 处理器指定 id属性，这样才能让 Spring 容器先获取 Bean 后处理器，然后注册它。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BeanTest</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">mian</span><span class="params">(String[] args)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">Resource</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;beans.xml&quot;</span>);</span><br><span class="line">        <span class="type">DefaultListableBeanFactory</span> <span class="variable">beanFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultListableBeanFactory</span>();</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">XMLBeanDefinitionReader</span>(beanFactor).loadBeanDefinitions(isr);</span><br><span class="line">        <span class="type">BeanPostProcessor</span> <span class="variable">bp</span> <span class="operator">=</span> (BeanPostProcessor)beanFactor.getBean(<span class="string">&quot;bp&quot;</span>);</span><br><span class="line">        beanFactory.addBeanPostProcessor(bp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是 Spring 常用的两个后处理器：</p>
+<blockquote>
+<ul>
+<li>BeanNameAutoProxyCreator：根据 Bean 实例的 name 属性，创建 Bean 实例的代理</li>
+<li>DefaultAdvisorAutoProxyCreator：根据提供的 Advisor，对容器中的所有 Bean 实例创建代理</li>
+</ul>
+</blockquote>
+<p>如果需要对容器中的某一批 Bean 进行通用的增强处理，则可以考虑使用 Bean 后处理器</p>
+<h3 id="容器后处理器"><a href="#容器后处理器" class="headerlink" title="容器后处理器"></a>容器后处理器</h3><p>容器后处理器负责处理容器自身，必须实现 BeanFactoryPostProcessor 接口，该接口需实现如下方法：<br><code>postProcessBeanFactory(ConfigurableListBeanFactory beanFactory)</code><br>该方法知识对 Spring 容器进行后处理，方法无须人和返回值。</p>
+<p>类似于 BeanPostProcessor，ApplicationContex 可自动检测到容器中的容器后处理器，并且自动注册容器后处理。但若使用 BeanFactory 作为Spring容器，则必须通过手动调用该容器后处理器来处理 BeanFactory 容器。<br>Spring 已提供如下几个常用的容器后处理器：</p>
+<blockquote>
+<ul>
+<li>PropertyPlaceholderConfigurer：属性占位符配置器</li>
+<li>PropertyOverrideConfigurer：重写占位符配置器</li>
+<li>CustomAutowireConfigurer：自定义自动装配的配置器</li>
+<li>CustomScopeConfigurer：自定义作用域的配置器</li>
+</ul>
+</blockquote>
+<p>如果有需要，程序可以配置多个容器后处理器，多个容器后处理器可设置 order 属性来控制容器后处理器的执行顺序。为了给容器后处理器指定 order 属性，则要求容器后处理器必须实现 Ordered接口。</p>
+<p>容器后处理的作用域范围是容器级，它只对容器本身进行处理，并且总是在容器实例化人和其他的 Bean 之前，读取配置文件的元数据，并有可能修改这些元数据。</p>
+<h4 id="属性占位符配置器"><a href="#属性占位符配置器" class="headerlink" title="属性占位符配置器"></a>属性占位符配置器</h4><p>PropertyPlaceholderConfigurer，它是一个容器后处理器，负责读取 Properties 属性文件里的属性值，并将这些属性值设置成 Spring 配置文件的数据，如下所示：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.bean.factory.config.PropertyPlaceholderConfigurer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;locations&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>dbconn.properties<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 如果有多个属性配置文件，可依次在此列出 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 定义数据源 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">destort-method</span>=<span class="string">&quot;close&quot;</span> <span class="attr">p:driverClass</span>=<span class="string">&quot;$&#123;jdbc.driverClassName&#125;&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">p:jdbcUrl</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span> <span class="attr">p:user</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span> <span class="attr">p:password</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>dbconn.properties 配置文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">jdbc.driveClassName=com.mysql.cj.jdbc.Driver</span><br><span class="line">jdbc.url=jdbc:mysql://localhost:3306/mystudy</span><br><span class="line">jdbc.username=root</span><br><span class="line">jdbc.password=root</span><br></pre></td></tr></table></figure>
+
+<p>PropertyPlaceholderConfigurer就是通过”${}”占位符将配置文件中的内容配置给 Bean</p>
+<p>如果采用基于 XML Schema 的配置文件而言，如果导入了 context:命名空间，则可才用如下方式：<br><code>&lt;context:property-placeholder location=&quot;classpath:db.properties&quot;/&gt;</code></p>
+<h4 id="重写占位符配置器"><a href="#重写占位符配置器" class="headerlink" title="重写占位符配置器"></a>重写占位符配置器</h4><p>PropertyOverrideConfigurer的属性文件指定的信息可以直接覆盖 Spring 配置文件中的元数据。当 XML 配置文件和属性文件指定的元数据不一致时，属性文件的信息取胜。<br>使用PropertyOverrideConfigurer的属性文件，每条属性应该保持如下格式：<br><code>beanId.property=value</code><br>beanId 是属性占位符试图覆盖的 Bena 的 id，property 是试图覆盖的属性名(对应于调用 setter 方法)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.bean.factory.config.PropertyOverrideConfigurer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;locations&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>dbconn.properties<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 如果有多个属性配置文件，可依次在此列出 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 定义数据源，配置该 Bean 时没有指定人和信息，但 Properties文件里的信息将会覆盖该 </span></span><br><span class="line"><span class="comment">    Bean 的属性值 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;dataSource&quot;</span> <span class="attr">class</span>=<span class="string">&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">destort-method</span>=<span class="string">&quot;close&quot;</span> <span class="attr">p:driverClass</span>=<span class="string">&quot;$&#123;jdbc.driverClassName&#125;&quot;</span></span></span><br><span class="line"><span class="tag"><span class="attr">p:jdbcUrl</span>=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span> <span class="attr">p:user</span>=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span> <span class="attr">p:password</span>=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>dbconn.properties配置文件如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dataSource.driveClassName=com.mysql.cj.jdbc.Driver</span><br><span class="line">dataSource.url=jdbc:mysql://localhost:3306/mystudy</span><br><span class="line">dataSource.username=root</span><br><span class="line">dataSource.password=root</span><br></pre></td></tr></table></figure>
+<p>此配置文件中的dataSource对应 beanid，如不存在则发生错误</p>
+<p>如果采用基于 XML Schema 的配置文件而言，如果导入了 context:命名空间，则可才用如下方式：<br><code>&lt;context:property-override location=&quot;classpath:db.properties&quot;/&gt;</code></p>
+<h2 id="Spring-的自动装配"><a href="#Spring-的自动装配" class="headerlink" title="Spring 的自动装配"></a>Spring 的自动装配</h2><h3 id="搜索-Bean"><a href="#搜索-Bean" class="headerlink" title="搜索 Bean"></a>搜索 Bean</h3><p>如果希望 Java 类可以被当做 Bean 处理需使用如下注解修饰：</p>
+<blockquote>
+<ul>
+<li>@Component：标注一个普通的 Spring Bean类</li>
+<li>@Controler：标注一个控制器组件类</li>
+<li>@Service：标注一个业务逻辑组件类</li>
+<li>@Repository：标注一个 DAO 组件类</li>
+</ul>
+</blockquote>
+<p>通过以上注解配置的 Bean ，默认的 Bean Id 为类名（将第一个字母小写），如果需要为 Bean 指定 Id，则需要在注解内手动配置，例如<code>@Component(&quot;mybean&quot;)</code>。也可使用 @Named注解配置 Bean</p>
+<p>需要在配置文件中指定Bean搜索搜索路径，Spring 将会自动搜索该路径下的所有 Java 类，并根据这些 Java 类来创建 Bean 实例。</p>
+<p>如果使用 XML 配置方式，需增加<code>&lt;context:component-scan base-package=&quot;com.learn.app&quot;/&gt;</code>开启自动扫描。此处可以添加<code>&lt;include-filter.../&gt;</code>子元素用于强制 Spring处理这些类，即使这些类没有使用注解修饰；添加<code>&lt;exclude-filter.../&gt;</code>子元素用于强制将某些 Spring 注解修饰的类排除在外。使用这两个子元素时，需要指定如下两个属性：</p>
+<blockquote>
+<ul>
+<li><p>type: 指定过滤器类型，支持如下4种过滤器</p>
+<blockquote>
+<ul>
+<li>annotation：注解过滤器，该过滤器需要指定一个注解名</li>
+<li>assignable：类名过滤器，该过滤器直接指定一个 Java 类</li>
+<li>regex：正则表达式过滤器，匹配该正则表达式的 Java 类将满足过滤规则</li>
+<li>aspectj：AspectJ 过滤器</li>
+</ul>
+</blockquote>
+</li>
+<li><p>expression：指定过滤器所需要的表达式</p>
+</li>
+</ul>
+</blockquote>
+<p>如果通过 Java 配置方式，需要在 Java 配置类上增加<code>@ComponentScan</code>注解</p>
+<p>Spring提供了 @Lookup 注解来执行 lookup 方法注入，使用@Lookup直接修饰需要执行 lookup 方法注入的方法，通过指定 value 属性指定Spring实现该方法的返回值</p>
+<h3 id="指定-Bean-的作用域"><a href="#指定-Bean-的作用域" class="headerlink" title="指定 Bean 的作用域"></a>指定 Bean 的作用域</h3><p>可使用<code>@Scope</code>注解修饰，只要在该注解中提供作用域的名称即可。</p>
+<p>@Scope提供如下三个属性：</p>
+<blockquote>
+<ul>
+<li><p>proxyMode：指定是否应将组件配置为作用域代理，如果是，则指定代理应基于接口还是基于子类。支持如下属性：</p>
+<blockquote>
+<ul>
+<li>ScopedProxyMode.DEFAULT：它通常表示除非在组件扫描指令级别配置了不同的默认值，否则不应创建范围代理</li>
+<li>ScopedProxyMode.INTERFACES：创建一个JDK动态代理，实现目标对象的类所公开的所有接口</li>
+<li>ScopedProxyMode.NO：不要创建作用域代理</li>
+<li>ScopedProxyMode.TARGET_CLASS：创建基于类的代理（使用CGLIB）</li>
+</ul>
+</blockquote>
+</li>
+<li><p>scopeName：为组件&#x2F;Bean 提供作用域名称，默认为空字符串（“”），表示SCOPE_SINGLETON。</p>
+</li>
+<li><p>value：scopeName的别名</p>
+</li>
+</ul>
+</blockquote>
+<p>Spring4.3中新增了@ApplicationScope、@SessionScope、@RequestScope，它们分别对应@Scope(“application”)、@Scope(“session”)、@Scope(“request”),且它们的 proxyMode 属性被设置为 ScopeProxyMode.TARGET_CLASS。</p>
+<p>在 XML 中配置需在<code>bean</code>中指定 scope 属性， 使用<code>&lt;aop:scope-proxy&gt;</code>指定 proxyMode 属性</p>
+<p>如果需要使用自定义作用域解析策略，则在配置扫描器是指定解析器的全限定类名即可<br><code>&lt;context:component-scan base-package=&quot;com.learn.app&quot; scope-resolver=&quot;org.learn.app.MyScopeResolver&quot;/&gt;</code></p>
+<h3 id="使用-Resource-和-Value-配置依赖"><a href="#使用-Resource-和-Value-配置依赖" class="headerlink" title="使用@Resource 和@Value 配置依赖"></a>使用@Resource 和@Value 配置依赖</h3><p>使用@Resource 与 <code>&lt;property.../&gt;</code>元素的 ref 属性有相同的效果，name 属性指定所引用的 Bean id</p>
+<p>使用@Value 与<code>&lt;property.../&gt;</code>元素的  value 属性有相同的效果，还可以使用 SpEL 表达式</p>
+<p>@Resource、@Value不仅可以修饰 setter 方法，也可以直接修饰实例变量。</p>
+<p>Spring 允许使用@Resource 时省略 name 属性，当使用省略 name 属性的@Resource 修饰的 setter 方法时，name 属性默认为该 setter 方法去掉前面的 set 子串、首字母小写后得到的子串；当使用省略name 属性的@Resource 修饰实例变量时，name 属性值默认与该实例变量同名。</p>
+<h3 id="使用-PostConstruct-和-PreDestory-定制声明周期"><a href="#使用-PostConstruct-和-PreDestory-定制声明周期" class="headerlink" title="使用@PostConstruct 和@PreDestory 定制声明周期"></a>使用@PostConstruct 和@PreDestory 定制声明周期</h3><p>@PostConstruct 作用与在<code>&lt;bean.../&gt;</code>中指定 init-method 属性相同，指定 Bean 的初始化方法</p>
+<p>@PreDestory 作用与在<code>&lt;bean.../&gt;</code>中指定 destory-method 属性相同，指定 Bean 的销毁方法</p>
+<p>它们都用于修饰方法，无需任何属性</p>
+<h3 id="使用-DependsOn-和-Lazy-改变初始化行为"><a href="#使用-DependsOn-和-Lazy-改变初始化行为" class="headerlink" title="使用@DependsOn 和@Lazy 改变初始化行为"></a>使用@DependsOn 和@Lazy 改变初始化行为</h3><p>@DependsOn 用于强制初始化依赖的 Bean；@Lazy 用于指定该 Bean 是否取消预初始化</p>
+<p>@DependsOn可以修饰 Bean 类或方法，使用该注解时可以指定一个字符串数组作为参数，每个数组元素对应于一个强制初始化的 Bean</p>
+<p>@Lazy 修饰 Spring Bean 类是否用于指定该 Bean 的预初始化行为，使用该注解时刻指定一个 boolean 型的 value 属性，该属性决定是否要预初始化该 Bean</p>
+<h3 id="自动装配与精确装配"><a href="#自动装配与精确装配" class="headerlink" title="自动装配与精确装配"></a>自动装配与精确装配</h3><p>Spring 提供了@Autowired 注解来指定自动装配，@Autowired可以修饰 setter 方法、普通方法、实例变量和构造器。当使用@Autowired标注 setter 方法时，默认采用 byType 自动装配策略</p>
+<p>@Autowired修饰 setter 方法时，通过该 setter 方法的参数类型在 Spring 容器中搜索，如果找到该类型的 Bean，则使用该 Bean 调用 setter 方法进行装配；如果找到多个此类型的 Bean，则Spring 引发异常；如果没找到该类型的 Bean，则什么也不做</p>
+<p>@Autowired修饰带多个参数的普通方法时，Spring 会自动到容器中寻找类型匹配的 Bean，如果恰好为每个参数都找到一个类型匹配的 Bean，Spring 会自动以这些 Bean 作为参数来调用方法。</p>
+<p>@Autowired修饰 修饰一个实例变量时，Spring 将会把容器中与该实例变量类型匹配的 Bean 设置为该实例变量的值。如果找到多个该类型的 Bean，则 Spring 容器会抛出 BeanCreateException</p>
+<p>@Autowired修饰数组类型、集合类型的成员变量和方法时，Spring 会自动搜索容器中所有的该类型实例，并注入 到数组或集合之中。如果程序没有使用泛型来指明元素的类型，则 Spring 将会不知所措。</p>
+<p>Spring 提供@Primary 注解，该注解用于将指定的候选 Bean 设置为主候选者 Bean。在 Spring 通过类型选择依赖注入时，会直接匹配该注解修饰的 Bean，无视其他同类型的 Bean。</p>
+<p>Spring 提供了@Qualifier 注解，通过该注解允许根据 Bean 的 id 来执行自动装配。可用于修饰实例变量、方法形参</p>
+<blockquote>
+<p>注：使用@Autowire 和@Qualifier 实现自动装配，不如直接使用 @Resource 注入依赖</p>
+</blockquote>
+<h3 id="Spring5新增的注解"><a href="#Spring5新增的注解" class="headerlink" title="Spring5新增的注解"></a>Spring5新增的注解</h3><p>在使用@Autowired 注解执行自动装配时，该注解可以指定一个 required属性，该属性默认为 true，这意味着该注解修饰的 Field 或setter 方法必须被依赖注入，否则 Spring 会在初始化容器时报错</p>
+<blockquote>
+<p>注：@Autowired与在 xml 中指定 autowired&#x3D;”byType”的自动装配存在区别。使用 xml 中的自动装配配置时，如果找不到自动装配的候选 Bean，Spring 不执行注入也不报错；但使用注解机型自动装配时，找不到会直接报错</p>
+</blockquote>
+<p>Spring5一如如下新注解：</p>
+<blockquote>
+<ul>
+<li>@Nullable：该注解主要用于修饰参数、返回值和 Field，声明他们可以为 null</li>
+<li>@NonNull：该注解主要用于修饰参数、返回值和 Field，声明他们不允许为 null</li>
+<li>@NonNullApi：该注解用于修饰包，表明该包内 API 的参数、返回值都不应该为 null。如果希望该包内某些参数、返回值可以为 null，则需要使用@Nullable 修饰它们。</li>
+<li>@NonNullField：该注解用于修饰包，表示该包内的 Field 都不应该是 null。如果希望该包内的某些 Field 可以为 null，则需要使用@Nullable 修饰他们</li>
+</ul>
+</blockquote>
+<h3 id="使用-Required-检查注入"><a href="#使用-Required-检查注入" class="headerlink" title="使用@Required 检查注入"></a>使用@Required 检查注入</h3><p>@Required可用来修饰 setter 方法，用来检查注入，Spring 在创建容器时就执行检查该 setter 方法，如果开发者既没有显式通过<code>&lt;property.../&gt;</code>配置依赖，也没有使用自动装配执行依赖注入，Spring 容器会引发 BeanInitializationException 异常</p>
+<h2 id="环境与-profile"><a href="#环境与-profile" class="headerlink" title="环境与 profile"></a>环境与 profile</h2><p>要使用 profile，首先要将所有不同的 Bean 整理到一个或多个 profile 之中，在将应用部署到每个环境时，要确保对应的 profile 处于激活状态。可使用**@Profile<strong>注解指定某个 bean 属于哪一个 profile。</strong>@Profile**可修饰类和方法。只有当规定的profile 被激活时，相应的 Bean （被@Profile 修饰的）才会被创建。没有指定 profile 的 Bean 始终都会被创建，与激活哪一个 profile 无关。</p>
+<p>也可通过在 XML 中配置profile，可应用于单个配置文件，也可嵌套使用。</p>
+<ul>
+<li><p>可将每一个 profile 配置一个 XML文件，通过在<code>&lt;beans.../&gt;</code>中通过 profile 属性配置并指定相应的 profile 名字。在主配置文件中通过<code>&lt;import.../&gt;</code>子属性导入profile 配置文件</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">&quot;dev&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans&gt;</span><br><span class="line">    &lt;import resource=&quot;dev-profile.xml&quot;/&gt;</span><br><span class="line">    &lt;import resource=&quot;qa-profile.xml&quot;/&gt;</span><br><span class="line">    &lt;import resource=&quot;prod-profile.xml&quot;/&gt;</span><br><span class="line">&lt;/beans&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可将所有的 profile 集合在一个XML配置文件中，通过<code>&lt;beans.../&gt;</code>嵌套</p>
+  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">&quot;dev&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">&quot;qa&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">beans</span> <span class="attr">profile</span>=<span class="string">&quot;prod&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">&quot;...&quot;</span> <span class="attr">class</span>=<span class="string">&quot;...&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>Spring在确定哪个 profile 处于激活状态时，通过依赖两个独立的属性：spring.profiles.active 和 spring.profiles.defaule。如果设置了spring.profiles.active，则使用其所指定的 profile；如果没有设置spring.profiles.active，则使用spring.profiles.defaule指定的 profile；如果两者都没有指定，则没有激活的 profile,只创建没有配置 profile 的 Bean。可通过如下方式来设置这两个属性：</p>
+<blockquote>
+<ul>
+<li>作为 DispatcherServlet 的初始化参数</li>
+<li>作为 Web 应用的上下文参数</li>
+<li>作为 JNDI 条目</li>
+<li>作为环境变量</li>
+<li>作为 JVM 系统属性</li>
+<li>在集成测试类上，使用@ActiveProfiles 注解配置</li>
+</ul>
+</blockquote>
+<h2 id="条件化的-Bean"><a href="#条件化的-Bean" class="headerlink" title="条件化的 Bean"></a>条件化的 Bean</h2><p>通过**@Conditional**注解修饰带有@Bean修饰的方法上，如果给定的条件计算为 true，就会创建 bean，否则这个 bean 会被忽略。此注解需要value 属性指定一个到多个<code>Class&lt;? extends Condition&gt;</code>作为参数指定条件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Conditional(MyCondionalImpl.class)</span></span><br><span class="line"><span class="keyword">public</span> TestBean <span class="title function_">testBean</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TestBean</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Conditon 是一个接口，指定<code>matches(ConditionContext context, AnnotatedTypeMetadata metadata)</code>方法用于判断条件。如果满足条件，matches返回 true 则创建 Bean；如果返回 false 则忽略该 Bean。参数类型ConditionContext、AnnotatedTypeMetadata都是接口，可通过该接口方法获取如下信息：</p>
+<blockquote>
+<ul>
+<li><p>ConditionContext接口</p>
+<blockquote>
+<ul>
+<li>通过 getRegistry()返回的 BeanDefinitionRegistry 检查 Bean 定义</li>
+<li>通过 getBeanFactory()返回的 ConfigurableListableBeanFactory 检查 Bean 是否存在，甚至探测 Bean 的属性</li>
+<li>通过 getEnvirment()返回的 Envirment 检查环境变量是否存在以及它的值是什么</li>
+<li>通过 getResources()返回 ResourcesLoader所加载的资源</li>
+<li>通过 getClassLoader()返回的 ClassLoader 加载并检查类是否存在</li>
+</ul>
+</blockquote>
+</li>
+<li><p>AnnotatedTypeMetadata接口：可用于获取 带有@Bean 注解的方法上还有什么其他注解</p>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MyCondionalImpl <span class="keyword">implements</span> <span class="title class_">Condition</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">matches</span><span class="params">(ConditionContext context, AnnotatedTypeMetadata metadata)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">Envirments</span> <span class="variable">env</span> <span class="operator">=</span> context.getEnvirment();</span><br><span class="line">        <span class="keyword">return</span> env.containsProperty(<span class="string">&quot;mytest&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面记录的@Profile 属性就是结合了@Condional的复合注解</p>
+<h2 id="运行时值注入"><a href="#运行时值注入" class="headerlink" title="运行时值注入"></a>运行时值注入</h2><p>可通过 XML 和注解两种方式加载Properties 配置文件到 Spring Envirment 中</p>
+<blockquote>
+<ul>
+<li><p>通过 XML 配置：<br><code>&lt;context:property-placeholder location=&quot;classpath:db.properties&quot;/&gt;</code></p>
+</li>
+<li><p>通过注解引入:<br>使用@PropertySource修饰 Java配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@PropertySource(&quot;classpath:/app.properties&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    Environment env;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">testBean</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">TestBean</span>(env.getPropery(<span class="string">&quot;name&quot;</span>),env.getProperty(<span class="string">&quot;phone&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</blockquote>
+<h3 id="深入学习-Spring-的-Envirment"><a href="#深入学习-Spring-的-Envirment" class="headerlink" title="深入学习 Spring 的 Envirment"></a>深入学习 Spring 的 Envirment</h3><p>通过使用Envirment接口可以通过getProperty()获取到配置信息属性值，其有如下几种重载方式：</p>
+<blockquote>
+<ul>
+<li><code>String getProperty(String)</code>：通过字符串查找属性值，找不到返回null</li>
+<li><code>String getProperty(String key,String defaultValue)</code>：通过字符串查找属性值，找不到返回defaultValue所指定字符串</li>
+<li><code>T getProperty(String key, Class&lt;T&gt; type);</code>：通过字符串查找属性值，返回type所指定的类型，找不到返回null</li>
+<li><code>T getProperty(String key, Class&lt;T&gt; type, T defaultValue)</code>:通过字符串查找属性值，返回type所指定的类型，找不到返回defaultValue所指定的值</li>
+</ul>
+</blockquote>
+<p>其他常用方法：</p>
+<blockquote>
+<ul>
+<li><code>String getRequiredProperty(String key)</code>：返回与给key关联的属性值（永不为null）。如果请求的属性没找到，则引发IllegalStateException异常</li>
+<li><code>String[] getActiveProfiles()</code>：返回激活profile名称的数组</li>
+<li><code>String[] getDefaultProfiles()</code>：返回默认profile名称的数组</li>
+<li><code>boolean acceptsProfiles(String... profiles)</code>：若果envirment支持给定的profile的话就返回true</li>
+</ul>
+</blockquote>
+<p>可以通过属性占位符来获取配置信息，通过配置 PropertySourcesPlaceholderConfigurer（容器后处理器中介绍）</p>
+<h2 id="资源访问"><a href="#资源访问" class="headerlink" title="资源访问"></a>资源访问</h2><p>Spring 改进了 Java 资源访问的策略，提供了一个 Resource 接口，该接口提供了更强力的资源访问能力，Spring 框架自身大量使用了Resource 来访问底层资源。Resource 接口主要提供如下几个方法：</p>
+<blockquote>
+<ul>
+<li><code>getInputStream()</code>：定位并打开资源，返回资源对应的输入流。每次调用都返回新的输入流。调用者负责关闭输入流</li>
+<li><code>exists()</code>：返回 Resource 所指向的资源是否存在</li>
+<li><code>isOpen()</code>：返回该资源是否打开，如果资源文件不能多次读取，每次读取结束时应该显式关闭，以防止资源泄露</li>
+<li><code>getDescription</code>：返回资源的描述信息，用于资源处理出错时输出该信息，通常是全限定文件名或实际URL</li>
+<li><code>getFile</code>：返回资源对应的 File 对象</li>
+<li><code>getURL</code>：返回资源对应的 URL 对象</li>
+</ul>
+</blockquote>
+<p>Resource 接口的具体实现类有如下几种：</p>
+<blockquote>
+<ul>
+<li>UrlResource：访问网络资源的实现类</li>
+<li>ClassPathResource：访问类加载路径里资源的实现类</li>
+<li>FileSystemResource：访问文件系统里资源的实现类</li>
+<li>ServletContextResource：访问相对于 ServletContext 路径下的资源的实现类</li>
+<li>InputStreamResource：访问输入流资源的实现类</li>
+<li>ByteArrayResource：访问字节数组资源的实现类</li>
+</ul>
+</blockquote>
+<p>当执行 Spring 的某个方法时，该方法接受一个代表资源路径的字符串参数，当 Spring识别该字符串参数中包含前缀时，系统将会根据前缀自动选择实现类。</p>
+<h3 id="ResourceLoader-接口和-ResourceLoaderAware-接口"><a href="#ResourceLoader-接口和-ResourceLoaderAware-接口" class="headerlink" title="ResourceLoader 接口和 ResourceLoaderAware 接口"></a>ResourceLoader 接口和 ResourceLoaderAware 接口</h3><p>ResourceLoader：该接口的实现类可以获得一个 Resource 实例，包含如下方法：</p>
+<blockquote>
+<p><code>Resource getResource(Sting location)</code>： 该方法根据位置信息返回一个 Resource 实例。ApplicationContext 的实现类都实现了 ResourceLoader 接口，可用于直接获取 Resource实例。</p>
+</blockquote>
+<p>当 Spring 应用需要进行资源访问时，实际上并不需要直接使用 Resource 实现类，而是调用 ResourceLoader 实例的 getResource()方法来获得资源，ResourceLoader 将会负责选择 Resource 的实现类，也就是确认具体的资源访问策略，从而将应用程序和具体的资源访问策略分离出来。这就是典型的策略模式。</p>
+<p>以下是常用的前缀及对应的访问策略</p>
+<blockquote>
+<p>classpath: ：以ClassPathResource 实例访问类加载路径下的资源<br>file: ：以 FileSystemResource 实例访问本地文件系统的资源<br>http: : 以 UrlResource 实例访问基于 HTTP 协议的网络资源<br>无前缀：由 ApplicationContext 的实现类决定访问路径</p>
+</blockquote>
+<p>ResourceLoaderAware：该接口的实现类的实例将获得一个 ResourceLoader 的引用，该接口提供 setResourceLoader()方法。类似于 BeanFactroyAware、BeanNameAware 接口，该方法由 Spring 容器负责调用。如果把实现 ResourceLoaderAware 接口的 Bean 部署在 Spring 容器中，Spring 容器会将自身当成 ResourceLoader 作为 setResourceLoader()方法的参数传入。</p>
+<h3 id="使用-Resource-作为参数"><a href="#使用-Resource-作为参数" class="headerlink" title="使用 Resource 作为参数"></a>使用 Resource 作为参数</h3><p>如果 Bean 实例需要访问资源，则有如下两种解决方案：</p>
+<blockquote>
+<ul>
+<li>在代码中获取 Resource 实例。<br>在这种方式下，当程序获取 Resource 实例时，总需要提供 Resource 所在的位置，资源所在的位置将被耦合到代码中，如果资源位置发生改变，则必须改写程序。</li>
+<li>使用依赖注入（<strong>推荐使用</strong>）</li>
+</ul>
+</blockquote>
+<h3 id="在-ApplicationContext-中使用资源"><a href="#在-ApplicationContext-中使用资源" class="headerlink" title="在 ApplicationContext 中使用资源"></a>在 ApplicationContext 中使用资源</h3><ol>
+<li>使用ApplicationContext 实现类指定访问策略<ul>
+<li>ClassPathXmlApplicationContext：对应使用 ClassPathResource 进行资源访问</li>
+<li>FileSystemXmlApplicationContext：对应使用 FileSystemResource 进行资源访问</li>
+<li>XmlWebApplicationContext：对应使用 ServletContextResource 进行资源访问</li>
+</ul>
+</li>
+<li>使用前缀指定访问策略<br><br> <code>ApplicationContext ctx = new FileSystemXmlApplicationContext(&quot;classpath:beans.xml&quot;)</code><br> 这里虽然使用 FileSystemXmlApplicationContext实现类，但程序依然从累加载路径搜索 beans.xml。相应的还可以使用 http:、ftp:等前缀来确定对应的资源访问策略<br> 通过前缀指定资源访问策略仅仅对当次访问有效，程序后面进行资源访问时，还是会根据 ApplicationContext 的实现类来选择对应的资源访问策略。</li>
+<li>classpath*:的用法<br> 当使用classpath*:前缀来指定 XML 配置文件时，系统将搜索类加载路径，找出所有与文件名匹配的文件，分别加载文件中的配置定义，最后合并成一个 ApplicationContext。<br><br> <code>ApplicationContext ctx = new FileSystemXmlApplicationContext(&quot;classpath*:beans*.xml&quot;)</code><br> 此处 Spring 会找出类加载路径下所有名称中包含“bean”的xml 文件，合并成一个ApplicationContext<br> classpath*:前缀只对ApplicationContext有效，不可用于Resource</li>
+<li>file:前缀的用法<br> FileSystemApplicationContext会让所有绑定的FileSystemResource实例把绝对路径当成相对路径处理，而不管是否以斜杠开头。建议强制使用file:前缀来区分绝对路径和相对路径</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://www.yangzb.top">Kevin Yang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://www.yangzb.top/%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8%20Spring.html">http://www.yangzb.top/%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8%20Spring.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://www.yangzb.top" target="_blank">梓琰苑</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Spring/">Spring</a><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div><div class="post_share"><div class="social-share" data-image="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/Spring%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.html"><img class="prev-cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Spring的缓存机制</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/SpringAOP.html" title="SpringAOP"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-25</div><div class="title">SpringAOP</div></div></a></div><div><a href="/Spring%E5%85%A5%E9%97%A8.html" title="Spring入门"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-25</div><div class="title">Spring入门</div></div></a></div><div><a href="/Spring%E7%9A%84%E4%BA%8B%E5%8A%A1.html" title="Spring 的事务"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-25</div><div class="title">Spring 的事务</div></div></a></div><div><a href="/Spring%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6.html" title="Spring的缓存机制"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-12-25</div><div class="title">Spring的缓存机制</div></div></a></div><div><a href="/Spring%20Cloud%20Feign.html" title="Spring Cloud Feign"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-06-25</div><div class="title">Spring Cloud Feign</div></div></a></div><div><a href="/let%20%E5%92%8C%20const%20%E5%91%BD%E4%BB%A4.html" title="let 和 const 命令"><img class="cover" src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-04-25</div><div class="title">let 和 const 命令</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/头像.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Yang</div><div class="author-info__description">But doctor...I am Pagliacci.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yzb317415" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:yzb317415@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8-Spring"><span class="toc-number">1.</span> <span class="toc-text">深入使用 Spring</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%90%8E%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.1.</span> <span class="toc-text">两种后处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean-%E5%90%8E%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.1.1.</span> <span class="toc-text">Bean 后处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%90%8E%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">容器后处理器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E5%8D%A0%E4%BD%8D%E7%AC%A6%E9%85%8D%E7%BD%AE%E5%99%A8"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">属性占位符配置器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%86%99%E5%8D%A0%E4%BD%8D%E7%AC%A6%E9%85%8D%E7%BD%AE%E5%99%A8"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">重写占位符配置器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-number">1.2.</span> <span class="toc-text">Spring 的自动装配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2-Bean"><span class="toc-number">1.2.1.</span> <span class="toc-text">搜索 Bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A-Bean-%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.2.2.</span> <span class="toc-text">指定 Bean 的作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Resource-%E5%92%8C-Value-%E9%85%8D%E7%BD%AE%E4%BE%9D%E8%B5%96"><span class="toc-number">1.2.3.</span> <span class="toc-text">使用@Resource 和@Value 配置依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-PostConstruct-%E5%92%8C-PreDestory-%E5%AE%9A%E5%88%B6%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F"><span class="toc-number">1.2.4.</span> <span class="toc-text">使用@PostConstruct 和@PreDestory 定制声明周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-DependsOn-%E5%92%8C-Lazy-%E6%94%B9%E5%8F%98%E5%88%9D%E5%A7%8B%E5%8C%96%E8%A1%8C%E4%B8%BA"><span class="toc-number">1.2.5.</span> <span class="toc-text">使用@DependsOn 和@Lazy 改变初始化行为</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%E4%B8%8E%E7%B2%BE%E7%A1%AE%E8%A3%85%E9%85%8D"><span class="toc-number">1.2.6.</span> <span class="toc-text">自动装配与精确装配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Spring5%E6%96%B0%E5%A2%9E%E7%9A%84%E6%B3%A8%E8%A7%A3"><span class="toc-number">1.2.7.</span> <span class="toc-text">Spring5新增的注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Required-%E6%A3%80%E6%9F%A5%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.8.</span> <span class="toc-text">使用@Required 检查注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%B8%8E-profile"><span class="toc-number">1.3.</span> <span class="toc-text">环境与 profile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E5%8C%96%E7%9A%84-Bean"><span class="toc-number">1.4.</span> <span class="toc-text">条件化的 Bean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E5%80%BC%E6%B3%A8%E5%85%A5"><span class="toc-number">1.5.</span> <span class="toc-text">运行时值注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0-Spring-%E7%9A%84-Envirment"><span class="toc-number">1.5.1.</span> <span class="toc-text">深入学习 Spring 的 Envirment</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E8%AE%BF%E9%97%AE"><span class="toc-number">1.6.</span> <span class="toc-text">资源访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ResourceLoader-%E6%8E%A5%E5%8F%A3%E5%92%8C-ResourceLoaderAware-%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.6.1.</span> <span class="toc-text">ResourceLoader 接口和 ResourceLoaderAware 接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Resource-%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0"><span class="toc-number">1.6.2.</span> <span class="toc-text">使用 Resource 作为参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-ApplicationContext-%E4%B8%AD%E4%BD%BF%E7%94%A8%E8%B5%84%E6%BA%90"><span class="toc-number">1.6.3.</span> <span class="toc-text">在 ApplicationContext 中使用资源</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Spring%20Cloud%20Feign.html" title="Spring Cloud Feign"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring Cloud Feign"/></a><div class="content"><a class="title" href="/Spring%20Cloud%20Feign.html" title="Spring Cloud Feign">Spring Cloud Feign</a><time datetime="2022-06-24T16:00:00.000Z" title="发表于 2022-06-25 00:00:00">2022-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/let%20%E5%92%8C%20const%20%E5%91%BD%E4%BB%A4.html" title="let 和 const 命令"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="let 和 const 命令"/></a><div class="content"><a class="title" href="/let%20%E5%92%8C%20const%20%E5%91%BD%E4%BB%A4.html" title="let 和 const 命令">let 和 const 命令</a><time datetime="2022-04-24T16:00:00.000Z" title="发表于 2022-04-25 00:00:00">2022-04-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC.html" title="对象的解构赋值"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="对象的解构赋值"/></a><div class="content"><a class="title" href="/%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC.html" title="对象的解构赋值">对象的解构赋值</a><time datetime="2022-04-24T16:00:00.000Z" title="发表于 2022-04-25 00:00:00">2022-04-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E8%8B%B1%E6%96%87%E6%97%B6%E6%80%81%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E8%A1%8C%E6%97%B6%E6%80%81.html" title="英文时态（二）：进行时态"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="英文时态（二）：进行时态"/></a><div class="content"><a class="title" href="/%E8%8B%B1%E6%96%87%E6%97%B6%E6%80%81%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E8%BF%9B%E8%A1%8C%E6%97%B6%E6%80%81.html" title="英文时态（二）：进行时态">英文时态（二）：进行时态</a><time datetime="2021-06-24T02:29:40.000Z" title="发表于 2021-06-24 10:29:40">2021-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/%E8%8B%B1%E6%96%87%E6%97%B6%E6%80%81%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%B8%80%E8%88%AC%E6%97%B6%E6%80%81.html" title="英文时态（一）：一般时态"><img src="https://yangzb.oss-cn-huhehaote.aliyuncs.com/img/v2-58aec81346e543030a1855e6a342af7d_r.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="英文时态（一）：一般时态"/></a><div class="content"><a class="title" href="/%E8%8B%B1%E6%96%87%E6%97%B6%E6%80%81%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%B8%80%E8%88%AC%E6%97%B6%E6%80%81.html" title="英文时态（一）：一般时态">英文时态（一）：一般时态</a><time datetime="2021-06-24T02:29:19.000Z" title="发表于 2021-06-24 10:29:19">2021-06-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Kevin Yang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index"><span>蒙ICP备18005016号</span></a> | <a target="_blank" rel="noopener" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=15010502001824"><img class="icp-icon" src="/images/beian.png"><span>蒙公网安备 15010502001824号</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
